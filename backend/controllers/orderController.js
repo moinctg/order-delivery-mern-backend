@@ -7,7 +7,7 @@ const stripe =  new Stripe(process.env.STRIPE_SECRET_KEY)
 // Placing user order for frontend
 const placeOrder = async (req, res) =>{
 
-    const frontend_url = 'http://localhost:5173';
+    const frontend_url = 'https://food-order-deliver-24.vercel.app';
     try {
         const newOrder = new orderModel({
             userId: req.body.userId,
@@ -21,7 +21,7 @@ const placeOrder = async (req, res) =>{
 
         const line_items = req.body.items.map((item)=>({
             price_data :{
-                currency: "lkr",
+                currency: "Tk",
                 product_data:{
                     name: item.name
                 },
@@ -32,7 +32,7 @@ const placeOrder = async (req, res) =>{
 
         line_items.push({
             price_data :{
-                currency:"lkr",
+                currency:"Tk",
                 product_data:{
                     name:"Delivery Charges"
                 },
@@ -93,6 +93,38 @@ const listOrders = async (req,res) =>{
    } 
 }
 
+// listing orders for admin panel datewaise 
+const summeryOrders = async (req,res) =>{
+    
+    const { startDate, endDate } = req.query;
+
+    let query = {};
+
+    if (startDate && endDate) {
+        query.createdAt = {
+            $gte: new Date(startDate),
+            $lte: new Date(endDate)
+        };
+    }
+
+    try {
+        const orders = await orderModel.find(query).populate('item');
+        let summary = orders.reduce((acc, orderModel) => {
+            const date = new Date(orderModel.createdAt).toLocaleDateString();
+            if (!acc[date]) {
+                acc[date] = { totalOrders: 0, totalRevenue: 0 };
+            }
+            acc[date].totalOrders += 1;
+            acc[date].totalRevenue += orderModel.amount;
+            return acc;
+        }, {});
+
+        res.json(summary);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+
+}
 // api for updating order status
 const updateStatus = async (req, res) =>{
     try {
@@ -104,4 +136,4 @@ const updateStatus = async (req, res) =>{
     }
 }
 
-export {placeOrder, verifyOrder, userOrders,listOrders, updateStatus}
+export {placeOrder, verifyOrder, userOrders,listOrders, updateStatus,summeryOrders}
