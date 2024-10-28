@@ -1,13 +1,11 @@
 // models/Feedback.js
-import mongoose from "mongoose";
-const Schema = mongoose.Schema;
+import mongoose from 'mongoose';
 
-const feedbackSchema = new Schema({
-    user: { type: Schema.Types.ObjectId, ref: 'User', required: true }, // foreign key linking to User model
+const feedbackSchema = new mongoose.Schema({
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     feedbackText: { type: String, required: true },
-    rating: { type: Number, min: 1, max: 5, required: true },
-    createdAt: { type: Date, default: Date.now },
-});
+    rating: { type: Number, required: true }
+}, { timestamps: true });
 
 const Feedback = mongoose.model('Feedback', feedbackSchema);
-module.exports = Feedback;
+export default Feedback;

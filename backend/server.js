@@ -28,7 +28,7 @@ app.use("/images",express.static('uploads'))
 app.use('/api/user', userRouter)
 app.use('/api/cart', cartRouter)
 app.use('/api/order', orderRouter)
-app.use('/api/feedback', feedbackRoutes);
+app.use('/api/feedback', feedbackRoutes); // Use feedback routes
 
 app.get("/",(req,res)=>{
         res.send("API working")

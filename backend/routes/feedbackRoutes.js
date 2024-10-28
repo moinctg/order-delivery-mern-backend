@@ -1,15 +1,16 @@
-import express from 'express'
-const feedbackController = require('../controllers/feedbackController');
+import express from 'express';
+import { submitFeedback, getAllFeedbacks, getFeedbackByUser } from './../controllers/feedbackController.js';
 
 const router = express.Router();
 
-// Route for submitting feedback
-router.post('/submit', feedbackController.submitFeedback);
+// Route to submit feedback
+router.post('/submit', submitFeedback);
 
-// Route for retrieving all feedbacks
-router.get('/all', feedbackController.getAllFeedbacks);
+// Route to get all feedback
+router.get('/', getAllFeedbacks);
 
-// Route for retrieving feedback by a specific user
-router.get('/user/:userId', feedbackController.getFeedbackByUser);
+// Route to get feedback by user ID
+router.get('/:userId', getFeedbackByUser);
 
-module.exports = router;
+export default router;
+
