@@ -10,7 +10,7 @@ import feedbackRoutes from './routes/feedbackRoutes.js'
 // import 'dotenv/config';
 import cartRouter from './routes/cartRoute.js';
 import orderRouter from './routes/orderRoute.js';
-
+const paymentRoutes = require('./routes/paymentRoutes');
 //app config
 const app = express()
 const port =  8000;
@@ -29,6 +29,9 @@ app.use('/api/user', userRouter)
 app.use('/api/cart', cartRouter)
 app.use('/api/order', orderRouter)
 app.use('/api/feedback', feedbackRoutes); // Use feedback routes
+
+
+app.use('/api/payment', paymentRoutes);
 
 app.get("/",(req,res)=>{
         res.send("API working")

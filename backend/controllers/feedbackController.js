@@ -30,7 +30,10 @@ const submitFeedback = async (req, res) => {
 // Controller for retrieving all feedbacks
 const getAllFeedbacks = async (req, res) => {
     try {
-        const feedbacks = await Feedback.find().populate('user', 'name email'); // Populates user details
+        const feedbacks = await Feedback.find(populate('user', 'name email'))
+        // ; 
+        // res.json({success:true, data:feedbacks})
+        // Populates user details
         res.status(200).json(feedbacks);
     } catch (error) {
         res.status(500).json({ message: 'Error retrieving feedbacks', error });

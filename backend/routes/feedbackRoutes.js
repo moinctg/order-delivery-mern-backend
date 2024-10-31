@@ -1,16 +1,16 @@
 import express from 'express';
 import { submitFeedback, getAllFeedbacks, getFeedbackByUser } from './../controllers/feedbackController.js';
 
-const router = express.Router();
+const feedbackRouter  = express.Router();
 
 // Route to submit feedback
-router.post('/submit', submitFeedback);
+feedbackRouter.post('/submit', submitFeedback);
 
 // Route to get all feedback
-router.get('/', getAllFeedbacks);
+feedbackRouter.get('/', getAllFeedbacks);
 
 // Route to get feedback by user ID
-router.get('/:userId', getFeedbackByUser);
+feedbackRouter.get('/:userId', getFeedbackByUser);
 
-export default router;
+export default feedbackRouter;
 
