@@ -10,8 +10,10 @@ const orderSchema = new mongoose.Schema({
     payment:{type:Boolean, default:false},
     createdAt: {
         type: Date,
-        default: Date.now
-    }
+        default: Date.now,
+        timestamps: true 
+    },
+    
 })
 
 const orderModel = mongoose.models.order || mongoose.model("order", orderSchema)
