@@ -18,11 +18,12 @@ const submitFeedback = async (req, res) => {
             feedbackText,
             rating
         });
-        
+
         // Save feedback to database
         await feedback.save();
         res.status(201).json({ message: 'Feedback submitted successfully', feedback });
     } catch (error) {
+        console.error("Feedback submission error:", error);
         res.status(500).json({ message: 'Error submitting feedback', error });
     }
 };
