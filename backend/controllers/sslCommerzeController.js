@@ -92,18 +92,18 @@ const SSLCommerz_payment_init = async (req, res) => {
         country: shippingCountry,
       });
 
-      // Set Product Profile
-      payment.setProductInfo({
-        product_name: cartItems.map(i => i.productName).join(', '),
-        product_category: "Electronics",
-        product_profile: "general",
-      });
+      // // Set Product Profile
+      // payment.setProductInfo({
+      //   product_name: cartItems.map(i => i.productName).join(', '),
+      //   product_category: "Electronics",
+      //   product_profile: "general",
+      // });
 
       // Initiate Payment and Get session key
       payment.paymentInit().then(async (response) => {
-        // console.log(response);
+        console.log(response);
         res.send(response["GatewayPageURL"]);
-        // paymentDone = response["status"] === "SUCCESS";
+        paymentDone = response["status"] === "SUCCESS";
 
         const newOrder = new Order({
           _id: transactionId,
