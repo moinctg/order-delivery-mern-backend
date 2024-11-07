@@ -18,11 +18,12 @@ const submitFeedback = async (req, res) => {
             feedbackText,
             rating
         });
-        
+
         // Save feedback to database
         await feedback.save();
         res.status(201).json({ message: 'Feedback submitted successfully', feedback });
     } catch (error) {
+        console.error("Feedback submission error:", error);
         res.status(500).json({ message: 'Error submitting feedback', error });
     }
 };
@@ -30,8 +31,8 @@ const submitFeedback = async (req, res) => {
 // Controller for retrieving all feedbacks
 const getAllFeedbacks = async (req, res) => {
     try {
-        const feedbacks = await Feedback.find(populate('user', 'name email'))
-        // ; 
+        const feedbacks = await Feedback.find({})
+        // ; find(populate('user', 'name email'))
         // res.json({success:true, data:feedbacks})
         // Populates user details
         res.status(200).json(feedbacks);
