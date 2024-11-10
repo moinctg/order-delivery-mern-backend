@@ -71,4 +71,22 @@ const registerUser = async (req, res) =>{
     }
 }
 
-export {loginUser, registerUser}
+
+export const getUserProfile = async (req, res) => {
+    try {
+        const user = req.user; // User is attached by authMiddleware
+        res.status(200).json({
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                // Add any other fields you want to return
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching user profile', error });
+    }
+};
+
+
+export {loginUser, registerUser,getUserProfile}
