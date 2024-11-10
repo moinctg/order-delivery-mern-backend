@@ -2,6 +2,8 @@ import express from 'express'
 // require('dotenv').config()
 import 'dotenv/config';
 import cors from 'cors'
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { connectDB } from './config/db.js'
 import foodRouter from './routes/foodRoute.js'
 import userRouter from './routes/userRoute.js';
@@ -11,6 +13,7 @@ import feedbackRoutes from './routes/feedbackRoutes.js'
 import cartRouter from './routes/cartRoute.js';
 import orderRouter from './routes/orderRoute.js';
 import sslCommerzeRoute from './routes/sslCommerzeRoute.js';
+import adminRoute from './routes/adminRoutes.js';
 //app config
 const app = express()
 const port =  8000;
@@ -28,6 +31,17 @@ app.use(function(req, res, next) {
     next();
   });
 
+// Manually define __dirname for ES modules
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+// // Serve static files
+// const frontendBuildPath = path.join(__dirname, 'dist');
+
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+// });
+
 // api endpoints
 app.use("/api/food",foodRouter)
 app.use("/images",express.static('uploads'))
@@ -37,7 +51,7 @@ app.use('/api/order', orderRouter)
 app.use('/api/feedback', feedbackRoutes); // Use feedback routes
 
 app.use('/api/payment', sslCommerzeRoute);   //ssl commerce payment
-
+app.use('/api/admin', adminRoute);
 app.get("/",(req,res)=>{
         res.send("API working")
 })

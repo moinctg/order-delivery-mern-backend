@@ -5,14 +5,17 @@ import foodModel from '../models/foodModel.js'
 
 const addFood = async (req,res) =>{
 
-    let image_filename = `${req.file.filename}`;
+    // let image_filename = `${req.file.filename}`;
+    const imageUrl = req.file?.path;
 
     const food = new foodModel({
         name: req.body.name,
         description:req.body.description,
         price:req.body.price,
         category:req.body.category,
-        image:image_filename
+        // image:image_filename
+        image:imageUrl
+        
     })
 
     try {
