@@ -22,7 +22,7 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
 
-const authMiddleware = async (req, res, next) => {
+const auth = async (req, res, next) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
         if (!token) {
@@ -45,4 +45,4 @@ const authMiddleware = async (req, res, next) => {
     }
 };
 
-export default authMiddleware;
+export default auth;

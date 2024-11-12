@@ -72,7 +72,7 @@ const registerUser = async (req, res) =>{
 }
 
 
-export const getUserProfile = async (req, res) => {
+ const getUserProfile = async (req, res) => {
     try {
         const user = req.user; // User is attached by authMiddleware
         res.status(200).json({

@@ -4,17 +4,17 @@ import userModel from './../models/userModel.js';
 // Controller for submitting feedback
 const submitFeedback = async (req, res) => {
     try {
-        const { userId, feedbackText, rating } = req.body;
+        const { name, feedbackText, rating } = req.body;
 
         // Check if the user exists
-        const user = await userModel.findById(userId);
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
+        // const user = await userModel.findById(userId);
+        // if (!user) {
+        //     return res.status(404).json({ message: 'User not found' });
+        // }
 
         // Create new feedback
         const feedback = new Feedback({
-            user: userId,
+            name,
             feedbackText,
             rating
         });
